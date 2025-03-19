@@ -1,6 +1,69 @@
-import React from 'react'
+"use client"
 
-const page = () => {
+import React from 'react'
+import { useFormik } from "formik";
+import * as Yup from "yup";
+const RegisterSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email format"),
+  password: Yup.string().required("Password is required"),
+  password_confirmation: Yup.string()
+    .required("Password confirmation is required")
+    .oneOf([Yup.ref("password")], "Passwords do not match"),
+   mobile: Yup.string()
+    .required("Mobile number is required")
+    .matches(/^[0-9]{10}$/, "invalid number")
+    // .min(10, "Mobile number must be at least 10 digits")
+    // .max(15, "Mobile number cannot exceed 15 digits"),
+});
+
+
+const initialValues = {
+  name: "",
+  username: "",
+  email: "",
+  mobile:"",
+  password: "",
+  password_confirmation: "",
+};
+
+const Page = () => {
+
+    const formik = useFormik({
+    initialValues,
+    validationSchema: RegisterSchema,
+    onSubmit: async () => {
+      try {
+  //  const selectedAvatar = getAvatar(values.name);
+  //  console.log("Selected Avatar:", selectedAvatar);
+
+        // const response = await createUser({
+        //   ...values,
+        //   avatar: selectedAvatar,
+        // });
+        // console.log("API Response:", response);
+
+        
+
+        // if (response.data && response.data.status === "success") {
+        //   setServerSuccessMessage(response.data.message);
+        //   router.push("/blog/account/verify-email");
+        //   resetForm(); // Clears the form after submission
+        // }
+        // if (response.error && response.error.data.status === "failed") {
+        //   setServerErrorMessage(response.error.data.message);
+        // }
+        // setTimeout(() => {
+        //   setServerSuccessMessage("");
+        //   setServerErrorMessage("");
+        // }, 1000);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
   return (
  <div>
       {/* {serverSuccessMessage && (
@@ -19,7 +82,7 @@ const page = () => {
 
 
               <form
-                //   onSubmit={formik.handleSubmit}
+                  onSubmit={formik.handleSubmit}
                   className="space-y-4">
           {/* Name Input */}
           <div>
@@ -30,14 +93,14 @@ const page = () => {
               id="name"
               type="text"
               name="name"
-            //   value={formik.values.name}
-            //   onChange={formik.handleChange}
-            //   onBlur={formik.handleBlur}
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="w-full p-2 border-b bg-transparent outline-none"
             />
-            {/* {formik.touched.name && formik.errors.name && (
+            {formik.touched.name && formik.errors.name && (
               <p className="text-red-500 text-sm">{formik.errors.name}</p>
-            )} */}
+            )}
           </div>
 
           {/* Email Input */}
@@ -49,14 +112,14 @@ const page = () => {
               id="email"
               type="email"
               name="email"
-            //   value={formik.values.email}
-            //   onChange={formik.handleChange}
-            //   onBlur={formik.handleBlur}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="w-full p-2 border-b bg-transparent outline-none"
             />
-            {/* {formik.touched.email && formik.errors.email && (
+            {formik.touched.email && formik.errors.email && (
               <p className="text-red-500 text-sm">{formik.errors.email}</p>
-            )} */}
+            )}
           </div>
                   {/* mobile */}
                     <div>
@@ -67,14 +130,14 @@ const page = () => {
               id="mobile"
               type="tel"
               name="mobile"
-            //   value={formik.values.password}
-            //   onChange={formik.handleChange}
-            //   onBlur={formik.handleBlur}
+              value={formik.values.mobile}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="w-full p-2 border-b bg-transparent outline-none"
             />
-            {/* {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 text-sm">{formik.errors.password}</p>
-            )} */}
+            {formik.touched.mobile && formik.errors.mobile && (
+              <p className="text-red-500 text-sm">{formik.errors.mobile}</p>
+            )}
           </div>
           {/* Password Input */}
           <div>
@@ -85,14 +148,14 @@ const page = () => {
               id="password"
               type="password"
               name="password"
-            //   value={formik.values.password}
-            //   onChange={formik.handleChange}
-            //   onBlur={formik.handleBlur}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="w-full p-2 border-b bg-transparent outline-none"
             />
-            {/* {formik.touched.password && formik.errors.password && (
+            {formik.touched.password && formik.errors.password && (
               <p className="text-red-500 text-sm">{formik.errors.password}</p>
-            )} */}
+            )}
           </div>
 
           {/* Confirm Password Input */}
@@ -107,17 +170,17 @@ const page = () => {
               id="password_confirmation"
               type="password"
               name="password_confirmation"
-            //   value={formik.values.password_confirmation}
-            //   onChange={formik.handleChange}
-            //   onBlur={formik.handleBlur}
+              value={formik.values.password_confirmation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="w-full p-2 border-b bg-transparent outline-none"
             />
-            {/* {formik.touched.password_confirmation &&
+            {formik.touched.password_confirmation &&
               formik.errors.password_confirmation && (
                 <p className="text-red-500 text-sm">
                   {formik.errors.password_confirmation}
                 </p>
-              )} */}
+              )}
           </div>
 
           {/* Submit Button */}
@@ -134,4 +197,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
