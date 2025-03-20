@@ -2,40 +2,16 @@
 
 import { useState } from "react";
 import { useFormik } from "formik";
+import {categories,seasons} from "../../../constants"
 
 import AddProductSchema from "../../../validation/AddProductSchema"
 
-const categories = {
-  Clothing: ["T-Shirts", "Jeans", "Jackets"],
-  Electronics: ["Mobile", "Laptop", "Tablet"],
-};
+// const categories = {
+//   Clothing: ["T-Shirts", "Jeans", "Jackets"],
+//   Electronics: ["Mobile", "Laptop", "Tablet"],
+// };
 
-const seasons = ["Summer", "Winter", "Spring", "Autumn"];
-
-// // ✅ Yup Validation Schema
-// const AddProductSchema = Yup.object({
-//   productName: Yup.string().required("Product name is required"),
-//   description: Yup.string().required("Description is required"),
-//     highlights: Yup.string().required("Description is required"),
-//   price: Yup.number()
-//     .required("Price is required")
-//     .positive("Price must be greater than zero"),
-//   quantity: Yup.number()
-//     .required("Quantity is required")
-//     .min(1, "Quantity must be at least 1"),
-//   category: Yup.string().required("Category is required"),
-//   subcategory: Yup.string().when("category", {
-//     is: (val) => val && categories[val],
-//     then: (schema) => schema.required("Subcategory is required"),
-//   }),
-//   season: Yup.string().when("category", {
-//     is: "Clothing",
-//     then: (schema) => schema.required("Season is required"),
-//   }),
-//   displayImages: Yup.mixed().required("Display images are required"),
-//   insideImages: Yup.mixed().required("Inside images are required"),
-//   keywords: Yup.string().required("Keywords are required"),
-// });
+// const seasons = ["Summer", "Winter", "Spring", "Autumn"];
 
 const AddProduct = () => {
   const [category, setCategory] = useState("");
@@ -54,7 +30,8 @@ const AddProduct = () => {
       displayImages: [],
       insideImages: [],
       keywords: "",
-      highlights:"",
+      highlights: "",
+      size:"",
     },
     validationSchema: AddProductSchema,
     onSubmit: (values) => {
@@ -274,7 +251,9 @@ const AddProduct = () => {
           {/* Subcategory Dropdown (if applicable) */}
           {category && categories[category] && (
             <div>
-              <label className="block font-medium text-white">Subcategory</label>
+              <label className="block font-medium text-white">
+                Subcategory
+              </label>
               <select
                 name="subcategory"
                 onChange={formik.handleChange}
@@ -289,6 +268,42 @@ const AddProduct = () => {
                   </option>
                 ))}
               </select>
+            </div>
+          )}
+
+          {category === "Clothing" && (
+            <div>
+              <label className="block font-medium text-white">Season</label>
+              <select
+                name="season"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.season}
+                className="bg-[#151030]  py-4 px-6 rounded-lg w-full outline-none border-none font-medium placeholder:text-[#aaa6c3] text-white "
+              >
+                <option value="">Select seasons</option>
+                {seasons.map((sub) => (
+                  <option key={sub} value={sub}>
+                    {sub}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {category === "Clothing" && (
+            <div>
+              <label className="block font-medium text-white">Size</label>
+              <input
+                name="size"
+                placeholder="(comma separated)"
+                className="bg-[#151030]  py-4 px-6 rounded-lg w-full outline-none border-none font-medium placeholder:text-[#aaa6c3] text-white "
+                value={formik.values.size}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.size && formik.errors.size && (
+                <div className="text-red-500 text-sm">{formik.errors.size}</div>
+              )}
             </div>
           )}
         </div>

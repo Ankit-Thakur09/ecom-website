@@ -7,7 +7,7 @@ const categories = {
 const AddProductSchema = Yup.object({
   productName: Yup.string().required("Product name is required"),
   description: Yup.string().required("Description is required"),
-    highlights: Yup.string().required("Description is required"),
+  highlights: Yup.string().required("Description is required"),
   price: Yup.number()
     .required("Price is required")
     .positive("Price must be greater than zero"),
@@ -26,6 +26,7 @@ const AddProductSchema = Yup.object({
   displayImages: Yup.mixed().required("Display images are required"),
   insideImages: Yup.mixed().required("Inside images are required"),
   keywords: Yup.string().required("Keywords are required"),
+  size: Yup.string().required("Sizes are required"),
 });
 
 export default AddProductSchema;
