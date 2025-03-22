@@ -6,13 +6,6 @@ import {categories,seasons} from "../../../constants"
 
 import AddProductSchema from "../../../validation/AddProductSchema"
 
-// const categories = {
-//   Clothing: ["T-Shirts", "Jeans", "Jackets"],
-//   Electronics: ["Mobile", "Laptop", "Tablet"],
-// };
-
-// const seasons = ["Summer", "Winter", "Spring", "Autumn"];
-
 const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [displayPreviews, setDisplayPreviews] = useState([]);
