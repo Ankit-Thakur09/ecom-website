@@ -36,7 +36,7 @@ const Contact = () => {
             "MPp-viltL7tfZCpyE"
 ).then(()=>{
     setLoading(false);
-    alert("i will get back to you soon");
+    alert("We will get back to you soon");
     setForm({
         name: "",
         email: "",
