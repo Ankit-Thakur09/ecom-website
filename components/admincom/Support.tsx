@@ -8,6 +8,7 @@ import emailjs from "@emailjs/browser"
 interface SupportProps {
   Xmark?: boolean;
   closeModal: () => void;
+ 
 }
 
 const Support: React.FC<SupportProps>= ({  Xmark = false, closeModal }) => {

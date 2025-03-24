@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import {adminFooterLinks} from "../../../constants/index"
+import {adminFooterLinks} from "../../constants/index"
 import Support from "@/components/admincom/Support";
 import RegisterAdmin from "@/components/admincom/RegisterAdmin";
 
@@ -29,10 +29,10 @@ const AdminFooter: React.FC = () => {
     }, [isSupportModalOpen,isRegisterModalOpen]);
 
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {  // ✅ Explicitly define event type
+      const handleClickOutside = (event: MouseEvent) => { 
   if (
     modalRef.current &&
-    !modalRef.current.contains(event.target as Node) &&  // ✅ Cast event.target to Node
+    !modalRef.current.contains(event.target as Node) &&  
     isSupportModalOpen
   ) {
     closeModal();
@@ -103,7 +103,7 @@ const AdminFooter: React.FC = () => {
             className="w-[80%] md:w-[40vw] overflow-y-auto h-[90%]  rounded-3xl"
             ref={modalRef}
           >
-            <RegisterAdmin  Xmark={true} closeModal={closeModal} />
+            <RegisterAdmin  Xmark={true} closeModal={closeModal} createdById="01" createdByName="admin@123"/>
           </div>
         </div>
       )}

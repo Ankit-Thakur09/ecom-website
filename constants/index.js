@@ -8,8 +8,17 @@ export const seasons = ["Summer", "Winter", "Spring", "Autumn"];
 
 export const adminFooterLinks = [
   { name: "Home", href: "/admin" },
-  { name: "Orders", href: "/orders" },
-  { name: "Products", href: "/products" },
-  { name: "Customers", href: "/customers" },
-  { name: "Sales", href: "/sales" },
+  { name: "Orders", href: "/admin/orders" },
+  { name: "Products", href: "/admin/products" },
+  { name: "Customers", href: "/admin/customers" },
+  { name: "Sales", href: "/admin/sales" },
+];
+
+
+export const unauthFooterLinks = [
+  { name: "Home", href: "/" },
+  { name: "Electronics", href: "/electronics" },
+  { name: "Cloths", href: "/cloth" },
+  { name: "About", href: "/aboutus" },
+ 
 ];

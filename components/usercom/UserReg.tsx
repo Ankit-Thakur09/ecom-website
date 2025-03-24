@@ -17,14 +17,10 @@ const initialValues = {
 interface RegisterProps {
   Xmark?: boolean;
   closeModal: () => void;
-   createdById: string;
-    createdByName: string;
 }
-const RegisterAdmin : React.FC<RegisterProps>= ({  Xmark = false, closeModal ,createdById,createdByName })=> {
+const UserReg : React.FC<RegisterProps>= ({  Xmark = false, closeModal  })=> {
   //  const formRef = useRef(null);
-  console.log("createdById", createdById)
-  console.log(createdByName)
-  
+
       const modalRef = useRef<HTMLDivElement>(null);
     const formik = useFormik({
     initialValues,
@@ -84,7 +80,7 @@ const RegisterAdmin : React.FC<RegisterProps>= ({  Xmark = false, closeModal ,cr
       )} */}
 
       <div ref={modalRef}
-                  onClick={(e) => e.stopPropagation()}className='md:p-10 rounded-lg p-8  bg-[#100d25] relative md:w-96 '>
+                  onClick={(e) => e.stopPropagation()}className='md:p-10 rounded-lg p-8 bg-[#363232] w-72  relative md:w-96 '>
            {Xmark && (
                                 <button
                                   onClick={closeModal}
@@ -93,7 +89,7 @@ const RegisterAdmin : React.FC<RegisterProps>= ({  Xmark = false, closeModal ,cr
                                   <FaTimes />
                                 </button>
                               )}
-        <h2 className="sm:text-[18px] text-[14px] text-[#aaa6c3] uppercase tracking-wider">Register the new Admin</h2>
+        <h2 className="sm:text-[18px] text-[14px] text-[#aaa6c3] uppercase tracking-wider">Create Account</h2>
               <form
                   onSubmit={formik.handleSubmit}
                   className="space-y-4">
@@ -201,7 +197,7 @@ const RegisterAdmin : React.FC<RegisterProps>= ({  Xmark = false, closeModal ,cr
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer"
           >
-            Create Admin
+            Create Account
           </button>
         </form>
     
@@ -210,4 +206,4 @@ const RegisterAdmin : React.FC<RegisterProps>= ({  Xmark = false, closeModal ,cr
   )
 }
 
-export default RegisterAdmin
+export default UserReg
