@@ -5,11 +5,17 @@ import { useFormik } from "formik";
 import {categories,seasons} from "../../../constants"
 
 import AddProductSchema from "../../../validation/AddProductSchema"
+import { useAddProductMutation } from "@/lib/services/adminAuth";
+import { useRouter } from "next/navigation";
 
 const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [displayPreviews, setDisplayPreviews] = useState([]);
   const [insidePreviews, setInsidePreviews] = useState([]);
+    const [serverErrorMessage, setServerErrorMessage] = useState("");
+  const [serverSuccessMessage, setServerSuccessMessage] = useState("");
+   const router = useRouter();
+  const [addProduct]=useAddProductMutation()
 
   const formik = useFormik({
     initialValues: {
@@ -27,9 +33,48 @@ const AddProduct = () => {
       size:"",
     },
     validationSchema: AddProductSchema,
-    onSubmit: (values) => {
-      console.log("Product Data:", values);
-      alert("Product added successfully!");
+    onSubmit: async (values, { resetForm }) => {
+        console.log("Form submitted!");
+
+alert("no data")
+      
+        console.log("Submitting form...", values);
+        const formData = new FormData();
+      formData.append("productName", values.productName);
+      formData.append("description", values.description);
+      formData.append("price", values.price);
+      formData.append("quantity", values.quantity);
+      formData.append("category", values.category);
+      formData.append("subcategory", values.subcategory);
+      formData.append("season", values.season);
+      formData.append("keywords", values.keywords);
+      formData.append("highlights", values.highlights);
+      formData.append("size", values.size);
+
+      // Append images
+      values.displayImages.forEach((image) => {
+        formData.append("displayImages", image);
+      });
+      values.insideImages.forEach((image) => {
+        formData.append("insideImages", image);
+      });
+      try {
+       const response = await addProduct(formData);
+        if (response.data?.success) {
+      setServerSuccessMessage(response.data.message);
+      router.push("/");  // Ensure this route exists
+      resetForm();
+    } else {
+      setServerErrorMessage(response.data.message || "Something went wrong");
+    }
+        setTimeout(() => {
+          setServerSuccessMessage("");
+          setServerErrorMessage("");
+        }, 2000);
+     
+     } catch (error) {
+        console.log(error)
+     }
     },
   });
 
@@ -44,7 +89,19 @@ const AddProduct = () => {
   };
 
   return (
-    <div className=" p-6 bg-[#100d25] ">
+
+
+    <> {serverSuccessMessage && (
+        <p className="text-green-500 text-sm text-center font-bold pt-10">
+          {serverSuccessMessage}
+        </p>
+      )}
+      {serverErrorMessage && (
+        <p className="text-red-500 text-sm text-center font-bold pt-10">
+          {serverErrorMessage}
+        </p>
+      )}
+        <div className=" p-6 bg-[#100d25] ">
       <h2 className="text-2xl font-bold mb-4 text-center text-white">
         Add New Product
       </h2>
@@ -313,6 +370,8 @@ const AddProduct = () => {
         </div>
       </form>
     </div>
+    </>
+  
   );
 };
 
