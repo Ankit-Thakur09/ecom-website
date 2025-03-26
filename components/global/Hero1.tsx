@@ -22,10 +22,10 @@ const Hero1 = () => {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Auto-slide every 5 seconds
+    }, 5000); 
     gsap.fromTo(
       slideLeftImg.current,
-      { opacity: 0, x: -100 }, // Example animation properties
+      { opacity: 0, x: -100 }, 
       { opacity: 1, x: 0, duration: 1 }
     );
     return () => clearInterval(interval);
@@ -36,14 +36,8 @@ const Hero1 = () => {
   };
 
   return (
-<div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-amber-300">
+<div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden ">
       <div  className="w-full h-full flex  items-center justify-center  text-center transition-all relative">
-   {/* <Image
-  src={slides[currentSlide].image}
-  alt="Slide"
-  fill
-  className="absolute top-0 left-0 w-full h-full object-cover"
-/> */}
        
         <div className='absolute z-20' ref={slideRef} >
           <div className="relative z-10  bg-opacity-50 p-6 rounded-lg">
