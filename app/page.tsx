@@ -1,5 +1,6 @@
 import Hero1 from "@/components/global/Hero1";
 import ProductContainer from "@/components/global/ProductContainer";
+import SplitCard from "../components/SplitCard"
 
 
 export default function Home() {
@@ -20,6 +21,9 @@ export default function Home() {
   <div className= " relative z-10 my-10 px-3 md:px-5">
     <h1 className="text-lg text-center font-bold mb-5">Products</h1>
     <ProductContainer />
+  </div>
+  <div>
+    <SplitCard/>
   </div>
 </div>
   );
