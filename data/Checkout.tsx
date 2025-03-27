@@ -2,7 +2,9 @@ import React from 'react'
 
 const Checkout = () => {
   return (
-    <div>Checkout</div>
+    <div>Checkout 
+<div>duttom tp check out</div>
+    </div>
   )
 }
 
